@@ -1,0 +1,75 @@
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 6vw;
+  background: rgba(240, 229, 221, 0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(110, 77, 54, 0.1);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  color: var(--color-brown);
+}
+
+.brand__icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-sage);
+  color: var(--color-white);
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  padding: 6px;
+  border-radius: 999px;
+  background: var(--color-sand);
+
+  a {
+    padding: 10px 16px;
+    border-radius: 999px;
+    color: var(--color-brown);
+    font-weight: 600;
+  }
+
+  a.active {
+    background: var(--color-white);
+    box-shadow: var(--shadow-soft);
+  }
+}
+
+.login-link {
+  padding: 11px 18px;
+  border-radius: 999px;
+  background: var(--color-brown);
+  color: var(--color-white);
+  font-weight: 700;
+}
+
+.main-content {
+  padding: 32px 6vw 64px;
+}
+
+@media (max-width: 760px) {
+  .main-header {
+    flex-wrap: wrap;
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+  }
+}

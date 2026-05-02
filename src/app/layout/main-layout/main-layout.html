@@ -1,0 +1,20 @@
+<header class="main-header">
+  <a routerLink="/" class="brand">
+    <span class="brand__icon">✦</span>
+    <span>CESIZen</span>
+  </a>
+
+  <nav class="nav">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      Accueil
+    </a>
+    <a routerLink="/informations" routerLinkActive="active">Informations</a>
+    <a routerLink="/diagnostic" routerLinkActive="active">Diagnostic</a>
+  </nav>
+
+  <a routerLink="/connexion" class="login-link">Connexion</a>
+</header>
+
+<main class="main-content">
+  <router-outlet />
+</main>
