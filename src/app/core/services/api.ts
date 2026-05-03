@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthResponse, LoginRequest } from '../models/auth.model';
+import { AuthResponse, LoginRequest, RegisterRequest } from '../models/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,5 +12,9 @@ export class Api {
 
   login(payload: LoginRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, payload);
+  }
+
+  register(payload: RegisterRequest): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/register`, payload);
   }
 }
