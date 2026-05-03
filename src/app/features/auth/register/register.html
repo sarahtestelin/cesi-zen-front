@@ -1,0 +1,70 @@
+<section class="register-page">
+  <div class="register-card">
+    <p class="eyebrow">Inscription</p>
+
+    <h1>Créer ton espace CESIZen</h1>
+
+    <p class="description">
+      Crée ton compte pour accéder à ton espace personnel et retrouver ton diagnostic.
+    </p>
+
+    <form (ngSubmit)="submit()" class="form">
+      <label>
+        Pseudo
+        <input
+          type="text"
+          name="pseudo"
+          [(ngModel)]="pseudo"
+          placeholder="Ton pseudo"
+          autocomplete="username"
+        />
+      </label>
+
+      <label>
+        Email
+        <input
+          type="email"
+          name="mail"
+          [(ngModel)]="mail"
+          placeholder="email@example.com"
+          autocomplete="email"
+        />
+      </label>
+
+      <label>
+        Mot de passe
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Minimum 12 caractères"
+          autocomplete="new-password"
+        />
+      </label>
+
+      <label>
+        Confirmation du mot de passe
+        <input
+          type="password"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          placeholder="Confirme ton mot de passe"
+          autocomplete="new-password"
+        />
+      </label>
+
+      @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+      }
+
+      <button type="submit" [disabled]="isLoading()">
+        {{ isLoading() ? 'Création...' : 'Créer mon compte' }}
+      </button>
+    </form>
+
+    <p class="helper">
+      Déjà un compte ?
+      <a routerLink="/connexion">Se connecter</a>
+    </p>
+  </div>
+</section>

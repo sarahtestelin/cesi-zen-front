@@ -1,0 +1,48 @@
+<section class="login-page">
+  <div class="login-card">
+    <p class="eyebrow">Connexion</p>
+
+    <h1>Ravie de te revoir</h1>
+
+    <p class="description">
+      Connecte-toi à ton espace CESIZen pour accéder à ton diagnostic et ton profil.
+    </p>
+
+    <form (ngSubmit)="submit()" class="form">
+      <label>
+        Email
+        <input
+          type="email"
+          name="mail"
+          [(ngModel)]="mail"
+          placeholder="admin@gmail.com"
+          autocomplete="email"
+        />
+      </label>
+
+      <label>
+        Mot de passe
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Votre mot de passe"
+          autocomplete="current-password"
+        />
+      </label>
+
+      @if (errorMessage()) {
+      <p class="error">{{ errorMessage() }}</p>
+      }
+
+      <button type="submit" [disabled]="isLoading()">
+        {{ isLoading() ? 'Connexion...' : 'Se connecter' }}
+      </button>
+    </form>
+
+    <p class="helper">
+      Pas encore de compte ?
+      <a routerLink="/inscription">Créer un compte</a>
+    </p>
+  </div>
+</section>

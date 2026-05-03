@@ -1,0 +1,96 @@
+.login-page {
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 180px);
+}
+
+.login-card {
+  width: min(100%, 480px);
+  padding: 38px;
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-soft);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--color-caramel);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+h1 {
+  margin: 0;
+  color: var(--color-brown);
+  font-size: 2.4rem;
+}
+
+.description {
+  margin: 14px 0 28px;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.form {
+  display: grid;
+  gap: 18px;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  color: var(--color-brown);
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid rgba(110, 77, 54, 0.18);
+  border-radius: var(--radius-sm);
+  background: var(--color-cream);
+  color: var(--color-text);
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--color-caramel);
+  box-shadow: 0 0 0 4px rgba(173, 110, 67, 0.15);
+}
+
+button {
+  min-height: 52px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-sage);
+  color: var(--color-white);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(173, 110, 67, 0.12);
+  color: var(--color-caramel);
+  font-weight: 700;
+}
+
+.helper {
+  margin: 24px 0 0;
+  color: var(--color-muted);
+  text-align: center;
+
+  a {
+    color: var(--color-caramel);
+    font-weight: 800;
+  }
+}
