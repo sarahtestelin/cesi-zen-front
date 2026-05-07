@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Auth } from '../../core/services/auth';
 
 @Component({
   selector: 'app-main-layout',
@@ -7,4 +8,16 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
-export class MainLayout {}
+export class MainLayout {
+  private readonly auth = inject(Auth);
+  private readonly router = inject(Router);
+
+  isAuthenticated(): boolean {
+    return this.auth.isAuthenticated();
+  }
+
+  logout(): void {
+    this.auth.logout();
+    this.router.navigateByUrl('/connexion');
+  }
+}
