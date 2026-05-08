@@ -1,7 +1,6 @@
 <section class="profile-page">
   <div class="profile-card">
-    <p class="eyebrow">Mon profil</p>
-    <h1>Ton espace personnel</h1>
+    <h1>Ton profil </h1>
 
     @if (isLoading()) {
     <p class="status">Chargement du profil...</p>
@@ -12,26 +11,32 @@
     }
 
     @if (user()) {
-    <div class="user-box">
-      <div class="avatar">
-        {{ user()?.pseudo?.charAt(0)?.toUpperCase() }}
-      </div>
-
-      <div>
-        <h2>{{ user()?.pseudo }}</h2>
-        <p>{{ user()?.mail }}</p>
-      </div>
-    </div>
-
     <div class="details">
       <div>
-        <span>Statut</span>
-        <strong>{{ user()?.isActive ? 'Actif' : 'Désactivé' }}</strong>
+        <span>Pseudo : </span>
+        <strong>{{ user()?.pseudo }}</strong>
       </div>
 
       <div>
-        <span>Dernière connexion</span>
-        <strong>{{ user()?.lastConnexion || 'Non renseignée' }}</strong>
+        <span>Email : </span>
+        <strong>{{ user()?.mail }}</strong>
+      </div>
+
+      <div>
+        <span>Statut : </span>
+        <strong>{{ user()?.appUserIsActive ? 'Actif' : 'Désactivé' }}</strong>
+      </div>
+
+      <div>
+        <span>Dernière connexion : </span>
+        <strong>
+          {{ user()?.lastConnectionAt | date: 'dd/MM/yyyy HH:mm' }}
+        </strong>
+      </div>
+
+      <div>
+        <span>Rôle : </span>
+        <strong>{{ user()?.role }}</strong>
       </div>
     </div>
     }

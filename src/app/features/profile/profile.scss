@@ -1,0 +1,93 @@
+.profile-page {
+  display: grid;
+  place-items: center;
+  min-height: calc(100vh - 180px);
+}
+
+.profile-card {
+  width: min(100%, 680px);
+  padding: 38px;
+  border-radius: var(--radius-lg);
+  background: var(--color-white);
+  box-shadow: var(--shadow-soft);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--color-caramel);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+h1 {
+  margin: 0 0 28px;
+  color: var(--color-brown);
+  font-size: 2.4rem;
+}
+
+.status {
+  color: var(--color-muted);
+}
+
+.error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: rgba(173, 110, 67, 0.12);
+  color: var(--color-caramel);
+  font-weight: 700;
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 22px;
+  border-radius: var(--radius-md);
+  background: var(--color-cream);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--color-sage);
+  color: var(--color-white);
+  font-size: 2rem;
+  font-weight: 900;
+}
+
+h2 {
+  margin: 0 0 6px;
+  color: var(--color-brown);
+}
+
+p {
+  margin: 0;
+  color: var(--color-muted);
+}
+
+.details {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px;
+    border-radius: var(--radius-sm);
+    background: var(--color-sand);
+  }
+
+  span {
+    color: var(--color-muted);
+  }
+
+  strong {
+    color: var(--color-brown);
+  }
+}

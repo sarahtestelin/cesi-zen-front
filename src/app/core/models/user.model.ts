@@ -1,7 +1,8 @@
 export interface User {
-  idUser: string;
+  id: string;
   mail: string;
   pseudo: string;
-  isActive: boolean;
-  lastConnexion: string;
+  appUserIsActive: boolean;
+  lastConnectionAt: string;
+  role: string;
 }

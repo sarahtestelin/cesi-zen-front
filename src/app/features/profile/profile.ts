@@ -1,10 +1,11 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { Api } from '../../core/services/api';
 import { User } from '../../core/models/user.model';
 
 @Component({
   selector: 'app-profile',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
 })
