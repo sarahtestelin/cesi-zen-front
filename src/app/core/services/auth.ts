@@ -35,6 +35,22 @@ export class Auth {
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken();
+    const token = this.getToken();
+    return !!token && token !== 'undefined' && token !== 'null';
+  }
+
+  getUserPseudo(): string | null {
+    const token = this.getToken();
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload?.pseudo || payload?.sub || null;
+    } catch {
+      return null;
+    }
   }
 }

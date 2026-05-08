@@ -39,3 +39,16 @@ input,
 textarea {
   font: inherit;
 }
+
+.global-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  background: var(--color-sage);
+  color: white;
+  font-weight: bold;
+  z-index: 999;
+}

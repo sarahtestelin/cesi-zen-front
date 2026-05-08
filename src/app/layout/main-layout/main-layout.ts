@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { Auth } from '../../core/services/auth';
 
@@ -8,9 +8,16 @@ import { Auth } from '../../core/services/auth';
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
-export class MainLayout {
+export class MainLayout implements OnInit {
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
+
+  pseudo = signal<string | null>(null);
+  isLoading = signal(false);
+
+  ngOnInit(): void {
+    this.refreshUserPseudo();
+  }
 
   isAuthenticated(): boolean {
     return this.auth.isAuthenticated();
@@ -18,6 +25,11 @@ export class MainLayout {
 
   logout(): void {
     this.auth.logout();
-    this.router.navigateByUrl('/connexion');
+    this.pseudo.set(null);
+    this.router.navigateByUrl('/');
+  }
+
+  private refreshUserPseudo(): void {
+    this.pseudo.set(this.auth.getUserPseudo());
   }
 }
