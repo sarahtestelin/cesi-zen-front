@@ -14,6 +14,7 @@
 
   @if (isAuthenticated()) {
   <a routerLink="/profil" class="login-link">Profil</a>
+  <a routerLink="/historique" class="login-link">Historique</a>
   <button type="button" class="login-link" (click)="logout()">Déconnexion</button>
   } @else {
   <a routerLink="/connexion" class="login-link">Connexion</a>
