@@ -12,7 +12,12 @@
     <a routerLink="/diagnostic" routerLinkActive="active">Diagnostic</a>
   </nav>
 
+  @if (isAuthenticated()) {
+  <a routerLink="/profil" class="login-link">Profil</a>
+  <button type="button" class="login-link" (click)="logout()">Déconnexion</button>
+  } @else {
   <a routerLink="/connexion" class="login-link">Connexion</a>
+  }
 </header>
 
 <main class="main-content">

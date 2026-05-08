@@ -1,0 +1,44 @@
+<section class="profile-page">
+  <div class="profile-card">
+    <h1>Ton profil </h1>
+
+    @if (isLoading()) {
+    <p class="status">Chargement du profil...</p>
+    }
+
+    @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+    }
+
+    @if (user()) {
+    <div class="details">
+      <div>
+        <span>Pseudo : </span>
+        <strong>{{ user()?.pseudo }}</strong>
+      </div>
+
+      <div>
+        <span>Email : </span>
+        <strong>{{ user()?.mail }}</strong>
+      </div>
+
+      <div>
+        <span>Statut : </span>
+        <strong>{{ user()?.appUserIsActive ? 'Actif' : 'Désactivé' }}</strong>
+      </div>
+
+      <div>
+        <span>Dernière connexion : </span>
+        <strong>
+          {{ user()?.lastConnectionAt | date: 'dd/MM/yyyy HH:mm' }}
+        </strong>
+      </div>
+
+      <div>
+        <span>Rôle : </span>
+        <strong>{{ user()?.role }}</strong>
+      </div>
+    </div>
+    }
+  </div>
+</section>

@@ -53,10 +53,14 @@ export class Register {
           this.isLoading.set(false);
           this.router.navigateByUrl('/');
         },
-        error: () => {
+        error: (err) => {
           this.isLoading.set(false);
-          this.errorMessage.set('Impossible de créer le compte. Email ou pseudo déjà utilisé.');
-        },
+          console.error(err);
+
+          this.errorMessage.set(
+            err?.error?.message || 'Erreur lors de la création du compte'
+          );
+        }
       });
   }
 }
