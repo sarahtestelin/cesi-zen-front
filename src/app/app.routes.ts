@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { MainLayout } from './layout/main-layout/main-layout';
 import { authGuard } from './core/guards/auth-guard';
 
+
 export const routes: Routes = [
   {
     path: '',
@@ -33,6 +34,11 @@ export const routes: Routes = [
         loadComponent: () => import('./features/profile/profile').then((m) => m.Profile),
         canActivate: [authGuard],
       },
+    {
+      path: 'historique',
+      loadComponent: () => import('./features/history/history').then((m) => m.History),
+      canActivate: [authGuard],
+    },
     ],
   },
   {

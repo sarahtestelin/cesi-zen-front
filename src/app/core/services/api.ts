@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthResponse, LoginRequest, RegisterRequest } from '../models/auth.model';
 import { User } from '../models/user.model';
+import { DiagnosticResult } from '../models/diagnostic-result.model';
 
 @Injectable({
   providedIn: 'root',
@@ -22,4 +23,7 @@ export class Api {
   getCurrentUser() {
     return this.http.get<User>(`${this.baseUrl}/users/me`);
   }
+  getMyDiagnosticResults() {
+  return this.http.get<DiagnosticResult[]>(`${this.baseUrl}/v1/diagnostics/results/me`);
+}
 }

@@ -13,12 +13,23 @@
   </nav>
 
   @if (isAuthenticated()) {
-  <a routerLink="/profil" class="login-link">Profil</a>
-  <button type="button" class="login-link" (click)="logout()">Déconnexion</button>
+  <div class="auth-actions">
+    @if (pseudo()) {
+    <span class="welcome">Bonjour, {{ pseudo() }}</span>
+    }
+
+    <a routerLink="/profil" class="login-link">Profil</a>
+    <a routerLink="/historique" class="login-link">Historique</a>
+    <button type="button" class="login-link" (click)="logout()">Déconnexion</button>
+  </div>
   } @else {
   <a routerLink="/connexion" class="login-link">Connexion</a>
   }
 </header>
+
+@if (isLoading()) {
+<div class="global-loader">Chargement...</div>
+}
 
 <main class="main-content">
   <router-outlet />
