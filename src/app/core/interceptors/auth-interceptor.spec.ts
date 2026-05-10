@@ -2,19 +2,23 @@ import { HttpInterceptorFn } from '@angular/common/http';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = localStorage.getItem('cesizen_access_token');
-  if (req.url.includes('/auth/login') || req.url.includes('/auth/register')) {
+
+  const isPublicRoute =
+    req.url.includes('/auth/login') ||
+    req.url.includes('/auth/register') ||
+    req.url.includes('/v1/ressources') ||
+    req.url.includes('/v1/surveys') ||
+    req.url.includes('/v1/diagnostics/anonymous');
+
+  if (isPublicRoute || !token || token === 'undefined' || token === 'null') {
     return next(req);
   }
 
-  if (!token) {
-    return next(req);
-  }
-
-  const authReq = req.clone({
-    setHeaders: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  return next(authReq);
+  return next(
+    req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
+  );
 };

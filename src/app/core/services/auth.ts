@@ -34,9 +34,19 @@ export class Auth {
     return localStorage.getItem(this.tokenKey);
   }
 
+  isTokenExpired(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp != null && Date.now() >= payload.exp * 1000;
+    } catch {
+      return true;
+    }
+  }
+
   isAuthenticated(): boolean {
     const token = this.getToken();
-    return !!token && token !== 'undefined' && token !== 'null';
+    if (!token || token === 'undefined' || token === 'null') return false;
+    return !this.isTokenExpired(token);
   }
 
   getUserPseudo(): string | null {
