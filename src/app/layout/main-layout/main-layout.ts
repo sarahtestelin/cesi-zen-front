@@ -23,6 +23,10 @@ export class MainLayout implements OnInit {
     return this.auth.isAuthenticated();
   }
 
+  isAdmin(): boolean {
+    return this.auth.isAdmin();
+  }
+
   logout(): void {
     this.auth.logout();
     this.pseudo.set(null);

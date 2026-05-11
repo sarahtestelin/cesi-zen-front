@@ -41,4 +41,41 @@
     </div>
     }
   </div>
+
+  <div class="profile-card">
+    <h2>Historique des diagnostics</h2>
+
+    @if (isDiagnosticsLoading()) {
+    <p class="status">Chargement de l'historique...</p>
+    }
+
+    @if (diagnosticsError()) {
+    <p class="error">{{ diagnosticsError() }}</p>
+    }
+
+    @if (!isDiagnosticsLoading() && diagnosticResults().length === 0) {
+    <p class="empty">Aucun diagnostic enregistré pour le moment.</p>
+    }
+
+    @if (diagnosticResults().length > 0) {
+    <div class="results-list">
+      @for (result of diagnosticResults(); track result.id) {
+      <article class="result-item">
+        <div>
+          <span>Date :</span>
+          <strong>{{ result.createdAt | date: 'dd/MM/yyyy HH:mm' }}</strong>
+        </div>
+        <div>
+          <span>Score :</span>
+          <strong>{{ result.finalScore }}</strong>
+        </div>
+        <div>
+          <span>Niveau :</span>
+          <strong>{{ result.level }}</strong>
+        </div>
+      </article>
+      }
+    </div>
+    }
+  </div>
 </section>

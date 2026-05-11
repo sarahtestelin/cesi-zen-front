@@ -1,0 +1,57 @@
+<section class="admin-page">
+  <div class="page-header">
+    <div>
+      <p class="eyebrow">Administration</p>
+      <h1>Dashboard statistiques</h1>
+      <p class="subtitle">
+        Suivi global des utilisateurs, diagnostics et configurations CESIZen.
+      </p>
+    </div>
+  </div>
+
+  <p *ngIf="loading" class="info-message">Chargement des statistiques...</p>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+  <div *ngIf="stats" class="stats-grid">
+    <article class="stat-card">
+      <span>Utilisateurs</span>
+      <strong>{{ stats.totalUsers }}</strong>
+    </article>
+
+    <article class="stat-card">
+      <span>Comptes actifs</span>
+      <strong>{{ stats.activeUsers }}</strong>
+    </article>
+
+    <article class="stat-card">
+      <span>Comptes désactivés</span>
+      <strong>{{ stats.inactiveUsers }}</strong>
+    </article>
+
+    <article class="stat-card">
+      <span>Diagnostics réalisés</span>
+      <strong>{{ stats.totalDiagnostics }}</strong>
+    </article>
+
+    <article class="stat-card">
+      <span>Questions diagnostic</span>
+      <strong>{{ stats.totalDiagnosticQuestions }}</strong>
+    </article>
+
+    <article class="stat-card">
+      <span>Seuils de résultats</span>
+      <strong>{{ stats.totalResultConfigs }}</strong>
+    </article>
+
+    <article class="stat-card">
+      <span>Ressources</span>
+      <strong>{{ stats.totalResources }}</strong>
+    </article>
+  </div>
+
+  <div class="admin-links">
+    <a routerLink="/admin/utilisateurs">Gérer les utilisateurs</a>
+    <a routerLink="/admin/questions-diagnostic">Gérer les questions</a>
+    <a routerLink="/admin/seuils-resultats">Gérer les seuils</a>
+  </div>
+</section>

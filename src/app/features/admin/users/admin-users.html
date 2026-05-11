@@ -1,0 +1,59 @@
+<section class="admin-page">
+  <div class="page-header">
+    <p class="eyebrow">Administration</p>
+    <h1>Liste des utilisateurs</h1>
+    <p class="subtitle">Activation et désactivation des comptes utilisateurs.</p>
+  </div>
+
+  <p *ngIf="loading" class="info-message">Chargement des utilisateurs...</p>
+  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
+  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+
+  <div class="table-wrapper" *ngIf="!loading">
+    <table>
+      <thead>
+      <tr>
+        <th>Pseudo</th>
+        <th>Email</th>
+        <th>Rôle</th>
+        <th>Statut</th>
+        <th>Dernière connexion</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.pseudo }}</td>
+        <td>{{ user.mail }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+            <span class="badge" [class.disabled]="!isUserActive(user)">
+              {{ isUserActive(user) ? 'Actif' : 'Désactivé' }}
+            </span>
+        </td>
+        <td>{{ getLastConnection(user) }}</td>
+        <td>
+          <button
+            *ngIf="isUserActive(user)"
+            type="button"
+            class="danger"
+            (click)="disableUser(user.id)"
+          >
+            Désactiver
+          </button>
+
+          <button
+            *ngIf="!isUserActive(user)"
+            type="button"
+            class="success"
+            (click)="enableUser(user.id)"
+          >
+            Activer
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

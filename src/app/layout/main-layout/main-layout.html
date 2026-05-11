@@ -8,19 +8,20 @@
     <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       Accueil
     </a>
-    <a routerLink="/informations" routerLinkActive="active">Informations</a>
     <a routerLink="/ressources" routerLinkActive="active">Ressources</a>
     <a routerLink="/diagnostic" routerLinkActive="active">Diagnostic</a>
   </nav>
 
   @if (isAuthenticated()) {
   <div class="auth-actions">
-    @if (pseudo()) {
-    <span class="welcome">Bonjour, {{ pseudo() }}</span>
+    @if (isAdmin()) {
+    <a routerLink="/admin" class="login-link">Admin</a>
     }
 
-    <a routerLink="/profil" class="login-link">Profil</a>
-    <a routerLink="/historique" class="login-link">Historique</a>
+    @if (pseudo()) {
+    <a routerLink="/profil" class="welcome">Bonjour, {{ pseudo() }}</a>
+    }
+
     <button type="button" class="login-link" (click)="logout()">Déconnexion</button>
   </div>
   } @else {
