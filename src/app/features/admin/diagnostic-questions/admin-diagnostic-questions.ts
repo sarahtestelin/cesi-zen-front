@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Api } from '../../../core/services/api';
 import { DiagnosticQuestion } from '../../../core/models/diagnostic.model';
 
@@ -17,11 +18,10 @@ type AdminDiagnosticQuestionView = DiagnosticQuestion & {
 })
 export class AdminDiagnosticQuestions implements OnInit {
   private readonly api = inject(Api);
+  private readonly toastr = inject(ToastrService);
 
   questions: AdminDiagnosticQuestionView[] = [];
   loading = true;
-  successMessage = '';
-  errorMessage = '';
 
   form = {
     id: '',
@@ -42,7 +42,7 @@ export class AdminDiagnosticQuestions implements OnInit {
         this.loading = false;
       },
       error: () => {
-        this.errorMessage = 'Impossible de charger les questions.';
+        this.toastr.error('Impossible de charger les questions.');
         this.loading = false;
       },
     });
@@ -53,9 +53,6 @@ export class AdminDiagnosticQuestions implements OnInit {
   }
 
   submit(): void {
-    this.successMessage = '';
-    this.errorMessage = '';
-
     const payload = {
       question: this.form.question,
       score: Number(this.form.score),
@@ -67,14 +64,12 @@ export class AdminDiagnosticQuestions implements OnInit {
 
     request.subscribe({
       next: () => {
-        this.successMessage = this.form.id
-          ? 'Question modifiée avec succès.'
-          : 'Question créée avec succès.';
+        this.toastr.success(this.form.id ? 'Question modifiée avec succès.' : 'Question créée avec succès.');
         this.resetForm();
         this.loadQuestions();
       },
       error: () => {
-        this.errorMessage = 'Impossible d’enregistrer la question.';
+        this.toastr.error('Impossible d\'enregistrer la question.');
       },
     });
   }
@@ -94,11 +89,11 @@ export class AdminDiagnosticQuestions implements OnInit {
   disable(id: string): void {
     this.api.disableDiagnosticQuestion(id).subscribe({
       next: () => {
-        this.successMessage = 'Question désactivée.';
+        this.toastr.success('Question désactivée.');
         this.loadQuestions();
       },
       error: () => {
-        this.errorMessage = 'Impossible de désactiver la question.';
+        this.toastr.error('Impossible de désactiver la question.');
       },
     });
   }
@@ -106,11 +101,11 @@ export class AdminDiagnosticQuestions implements OnInit {
   enable(id: string): void {
     this.api.enableDiagnosticQuestion(id).subscribe({
       next: () => {
-        this.successMessage = 'Question activée.';
+        this.toastr.success('Question activée.');
         this.loadQuestions();
       },
       error: () => {
-        this.errorMessage = 'Impossible d’activer la question.';
+        this.toastr.error('Impossible d\'activer la question.');
       },
     });
   }
@@ -122,11 +117,11 @@ export class AdminDiagnosticQuestions implements OnInit {
 
     this.api.deleteDiagnosticQuestion(id).subscribe({
       next: () => {
-        this.successMessage = 'Question supprimée.';
+        this.toastr.success('Question supprimée.');
         this.loadQuestions();
       },
       error: () => {
-        this.errorMessage = 'Impossible de supprimer la question.';
+        this.toastr.error('Impossible de supprimer la question.');
       },
     });
   }

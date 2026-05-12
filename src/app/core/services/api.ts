@@ -54,6 +54,18 @@ export class Api {
     return this.http.put<User>(`${this.baseUrl}/users/me`, payload);
   }
 
+  changePassword(payload: { currentPassword: string; newPassword: string }): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/password/change`, payload);
+  }
+
+  requestPasswordReset(payload: { mail: string }): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/password/reset-request`, payload);
+  }
+
+  resetPassword(payload: { token: string; newPassword: string }): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/password/reset`, payload);
+  }
+
   deleteCurrentUser(): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/users/me`);
   }
@@ -134,5 +146,29 @@ export class Api {
 
   deleteDiagnosticResultConfig(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/v1/diagnostics/admin/result-configs/${id}`);
+  }
+
+  getAdminResources(): Observable<Resource[]> {
+    return this.http.get<Resource[]>(`${this.baseUrl}/v1/ressources/admin`);
+  }
+
+  createResource(payload: { title: string; description: string; category: string }): Observable<Resource> {
+    return this.http.post<Resource>(`${this.baseUrl}/v1/ressources`, payload);
+  }
+
+  updateResource(id: string, payload: { title: string; description: string; category: string }): Observable<Resource> {
+    return this.http.put<Resource>(`${this.baseUrl}/v1/ressources/${id}`, payload);
+  }
+
+  enableResource(id: string): Observable<Resource> {
+    return this.http.patch<Resource>(`${this.baseUrl}/v1/ressources/${id}/enable`, {});
+  }
+
+  disableResource(id: string): Observable<Resource> {
+    return this.http.patch<Resource>(`${this.baseUrl}/v1/ressources/${id}/disable`, {});
+  }
+
+  deleteResource(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/v1/ressources/${id}`);
   }
 }

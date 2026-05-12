@@ -7,9 +7,6 @@
     </p>
   </div>
 
-  <p *ngIf="successMessage" class="success-message">{{ successMessage }}</p>
-  <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
-
   <form class="admin-form" (ngSubmit)="submit()">
     <h2>{{ form.id ? 'Modifier une question' : 'Ajouter une question' }}</h2>
 

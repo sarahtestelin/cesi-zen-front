@@ -29,6 +29,16 @@ export const routes: Routes = [
         loadComponent: () => import('./features/profile/profile').then((m) => m.Profile),
         canActivate: [authGuard],
       },
+      {
+        path: 'mot-de-passe-oublie',
+        loadComponent: () =>
+          import('./features/auth/forgot-password/forgot-password').then((m) => m.ForgotPassword),
+      },
+      {
+        path: 'reset-password',
+        loadComponent: () =>
+          import('./features/auth/reset-password/reset-password').then((m) => m.ResetPassword),
+      },
   {
         path: 'ressources',
     loadComponent: () => import('./features/resources/resources').then((m) => m.Resources),
@@ -60,6 +70,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/result-configs/admin-result-configs')
             .then((m) => m.AdminResultConfigs),
+      },
+      {
+        path: 'ressources',
+        loadComponent: () =>
+          import('./features/admin/resources/admin-resources')
+            .then((m) => m.AdminResources),
       },
     ],
   },

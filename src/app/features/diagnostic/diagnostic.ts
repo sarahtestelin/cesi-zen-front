@@ -1,4 +1,5 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Api } from '../../core/services/api';
 import { Auth } from '../../core/services/auth';
 import { DiagnosticQuestion, DiagnosticResult } from '../../core/models/diagnostic.model';
@@ -11,6 +12,7 @@ import { DiagnosticQuestion, DiagnosticResult } from '../../core/models/diagnost
 export class Diagnostic implements OnInit {
   private readonly api = inject(Api);
   private readonly auth = inject(Auth);
+  private readonly toastr = inject(ToastrService);
 
   questions = signal<DiagnosticQuestion[]>([]);
   selectedQuestionIds = signal<string[]>([]);
@@ -29,6 +31,7 @@ export class Diagnostic implements OnInit {
         this.isLoading.set(false);
       },
       error: () => {
+        this.toastr.error('Impossible de récupérer les questions.');
         this.errorMessage.set('Impossible de récupérer les questions du diagnostic.');
         this.isLoading.set(false);
       },
@@ -73,8 +76,10 @@ export class Diagnostic implements OnInit {
       next: (result) => {
         this.result.set(result);
         this.isSubmitting.set(false);
+        this.toastr.success('Diagnostic effectué !');
       },
       error: () => {
+        this.toastr.error('Impossible de calculer votre diagnostic.');
         this.errorMessage.set('Impossible de calculer votre diagnostic.');
         this.isSubmitting.set(false);
       },

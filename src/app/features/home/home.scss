@@ -121,6 +121,32 @@ h1 {
   }
 }
 
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 48px;
+  padding: 18px 24px;
+  border-radius: var(--radius-md);
+  background: var(--color-brown);
+  color: var(--color-sand);
+  font-size: 0.85rem;
+
+  nav {
+    display: flex;
+    gap: 16px;
+  }
+
+  a {
+    color: var(--color-sand);
+    font-weight: 700;
+
+    &:hover {
+      color: var(--color-white);
+    }
+  }
+}
+
 @media (max-width: 900px) {
   .hero,
   .features {

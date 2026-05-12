@@ -1,5 +1,7 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 import { Auth } from '../../core/services/auth';
 
 @Component({
@@ -8,15 +10,19 @@ import { Auth } from '../../core/services/auth';
   templateUrl: './main-layout.html',
   styleUrl: './main-layout.scss',
 })
-export class MainLayout implements OnInit {
+export class MainLayout {
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
+  private readonly toastr = inject(ToastrService);
 
   pseudo = signal<string | null>(null);
   isLoading = signal(false);
 
-  ngOnInit(): void {
+  constructor() {
     this.refreshUserPseudo();
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe(() => this.refreshUserPseudo());
   }
 
   isAuthenticated(): boolean {
@@ -30,6 +36,7 @@ export class MainLayout implements OnInit {
   logout(): void {
     this.auth.logout();
     this.pseudo.set(null);
+    this.toastr.info('Déconnexion réussie.');
     this.router.navigateByUrl('/');
   }
 

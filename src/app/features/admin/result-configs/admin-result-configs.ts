@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Api } from '../../../core/services/api';
 import { DiagnosticResultConfig } from '../../../core/models/admin.model';
 
@@ -13,11 +14,10 @@ import { DiagnosticResultConfig } from '../../../core/models/admin.model';
 })
 export class AdminResultConfigs implements OnInit {
   private readonly api = inject(Api);
+  private readonly toastr = inject(ToastrService);
 
   configs: DiagnosticResultConfig[] = [];
   loading = true;
-  successMessage = '';
-  errorMessage = '';
 
   form = {
     id: '',
@@ -40,16 +40,13 @@ export class AdminResultConfigs implements OnInit {
         this.loading = false;
       },
       error: () => {
-        this.errorMessage = 'Impossible de charger les seuils de résultats.';
+        this.toastr.error('Impossible de charger les seuils de résultats.');
         this.loading = false;
       },
     });
   }
 
   submit(): void {
-    this.successMessage = '';
-    this.errorMessage = '';
-
     const payload = {
       minScore: Number(this.form.minScore),
       maxScore: Number(this.form.maxScore),
@@ -63,14 +60,12 @@ export class AdminResultConfigs implements OnInit {
 
     request.subscribe({
       next: () => {
-        this.successMessage = this.form.id
-          ? 'Seuil modifié avec succès.'
-          : 'Seuil créé avec succès.';
+        this.toastr.success(this.form.id ? 'Seuil modifié avec succès.' : 'Seuil créé avec succès.');
         this.resetForm();
         this.loadConfigs();
       },
       error: () => {
-        this.errorMessage = 'Impossible d’enregistrer le seuil.';
+        this.toastr.error('Impossible d\'enregistrer le seuil.');
       },
     });
   }
@@ -92,11 +87,11 @@ export class AdminResultConfigs implements OnInit {
   enable(id: string): void {
     this.api.enableDiagnosticResultConfig(id).subscribe({
       next: () => {
-        this.successMessage = 'Seuil activé.';
+        this.toastr.success('Seuil activé.');
         this.loadConfigs();
       },
       error: () => {
-        this.errorMessage = 'Impossible d’activer le seuil.';
+        this.toastr.error('Impossible d\'activer le seuil.');
       },
     });
   }
@@ -104,11 +99,11 @@ export class AdminResultConfigs implements OnInit {
   disable(id: string): void {
     this.api.disableDiagnosticResultConfig(id).subscribe({
       next: () => {
-        this.successMessage = 'Seuil désactivé.';
+        this.toastr.success('Seuil désactivé.');
         this.loadConfigs();
       },
       error: () => {
-        this.errorMessage = 'Impossible de désactiver le seuil.';
+        this.toastr.error('Impossible de désactiver le seuil.');
       },
     });
   }
@@ -120,11 +115,11 @@ export class AdminResultConfigs implements OnInit {
 
     this.api.deleteDiagnosticResultConfig(id).subscribe({
       next: () => {
-        this.successMessage = 'Seuil supprimé.';
+        this.toastr.success('Seuil supprimé.');
         this.loadConfigs();
       },
       error: () => {
-        this.errorMessage = 'Impossible de supprimer le seuil.';
+        this.toastr.error('Impossible de supprimer le seuil.');
       },
     });
   }
