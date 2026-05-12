@@ -102,14 +102,6 @@ export class Api {
     return this.http.put<DiagnosticQuestion>(`${this.baseUrl}/v1/diagnostics/admin/questions/${id}`, payload);
   }
 
-  enableDiagnosticQuestion(id: string): Observable<DiagnosticQuestion> {
-    return this.http.patch<DiagnosticQuestion>(`${this.baseUrl}/v1/diagnostics/admin/questions/${id}/enable`, {});
-  }
-
-  disableDiagnosticQuestion(id: string): Observable<DiagnosticQuestion> {
-    return this.http.patch<DiagnosticQuestion>(`${this.baseUrl}/v1/diagnostics/admin/questions/${id}/disable`, {});
-  }
-
   deleteDiagnosticQuestion(id: string): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/v1/diagnostics/admin/questions/${id}`);
   }
@@ -134,14 +126,6 @@ export class Api {
     message: string;
   }): Observable<DiagnosticResultConfig> {
     return this.http.put<DiagnosticResultConfig>(`${this.baseUrl}/v1/diagnostics/admin/result-configs/${id}`, payload);
-  }
-
-  enableDiagnosticResultConfig(id: string): Observable<DiagnosticResultConfig> {
-    return this.http.patch<DiagnosticResultConfig>(`${this.baseUrl}/v1/diagnostics/admin/result-configs/${id}/enable`, {});
-  }
-
-  disableDiagnosticResultConfig(id: string): Observable<DiagnosticResultConfig> {
-    return this.http.patch<DiagnosticResultConfig>(`${this.baseUrl}/v1/diagnostics/admin/result-configs/${id}/disable`, {});
   }
 
   deleteDiagnosticResultConfig(id: string): Observable<void> {

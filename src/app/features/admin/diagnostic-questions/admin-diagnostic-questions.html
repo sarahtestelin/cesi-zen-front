@@ -55,7 +55,6 @@
       <tr>
         <th>Question</th>
         <th>Score</th>
-        <th>Statut</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -64,32 +63,8 @@
       <tr *ngFor="let question of questions">
         <td>{{ question.question }}</td>
         <td>{{ question.score }}</td>
-        <td>
-            <span class="badge" [class.disabled]="!isQuestionActive(question)">
-              {{ isQuestionActive(question) ? 'Active' : 'Désactivée' }}
-            </span>
-        </td>
         <td class="actions">
           <button type="button" (click)="edit(question)">Modifier</button>
-
-          <button
-            *ngIf="isQuestionActive(question)"
-            type="button"
-            class="danger"
-            (click)="disable(question.id)"
-          >
-            Désactiver
-          </button>
-
-          <button
-            *ngIf="!isQuestionActive(question)"
-            type="button"
-            class="success"
-            (click)="enable(question.id)"
-          >
-            Activer
-          </button>
-
           <button type="button" class="danger-outline" (click)="delete(question.id)">
             Supprimer
           </button>

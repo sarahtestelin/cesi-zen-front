@@ -84,30 +84,6 @@ export class AdminResultConfigs implements OnInit {
     this.resetForm();
   }
 
-  enable(id: string): void {
-    this.api.enableDiagnosticResultConfig(id).subscribe({
-      next: () => {
-        this.toastr.success('Seuil activé.');
-        this.loadConfigs();
-      },
-      error: () => {
-        this.toastr.error('Impossible d\'activer le seuil.');
-      },
-    });
-  }
-
-  disable(id: string): void {
-    this.api.disableDiagnosticResultConfig(id).subscribe({
-      next: () => {
-        this.toastr.success('Seuil désactivé.');
-        this.loadConfigs();
-      },
-      error: () => {
-        this.toastr.error('Impossible de désactiver le seuil.');
-      },
-    });
-  }
-
   delete(id: string): void {
     if (!confirm('Supprimer définitivement ce seuil ?')) {
       return;

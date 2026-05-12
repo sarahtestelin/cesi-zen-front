@@ -81,7 +81,6 @@
         <th>Max</th>
         <th>Niveau</th>
         <th>Message</th>
-        <th>Statut</th>
         <th>Actions</th>
       </tr>
       </thead>
@@ -92,32 +91,8 @@
         <td>{{ config.maxScore }}</td>
         <td>{{ config.level }}</td>
         <td>{{ config.message }}</td>
-        <td>
-            <span class="badge" [class.disabled]="!config.active">
-              {{ config.active ? 'Actif' : 'Désactivé' }}
-            </span>
-        </td>
         <td class="actions">
           <button type="button" (click)="edit(config)">Modifier</button>
-
-          <button
-            *ngIf="config.active"
-            type="button"
-            class="danger"
-            (click)="disable(config.id)"
-          >
-            Désactiver
-          </button>
-
-          <button
-            *ngIf="!config.active"
-            type="button"
-            class="success"
-            (click)="enable(config.id)"
-          >
-            Activer
-          </button>
-
           <button type="button" class="danger-outline" (click)="delete(config.id)">
             Supprimer
           </button>

@@ -48,10 +48,6 @@ export class AdminDiagnosticQuestions implements OnInit {
     });
   }
 
-  isQuestionActive(question: AdminDiagnosticQuestionView): boolean {
-    return question.active ?? true;
-  }
-
   submit(): void {
     const payload = {
       question: this.form.question,
@@ -84,30 +80,6 @@ export class AdminDiagnosticQuestions implements OnInit {
 
   cancelEdit(): void {
     this.resetForm();
-  }
-
-  disable(id: string): void {
-    this.api.disableDiagnosticQuestion(id).subscribe({
-      next: () => {
-        this.toastr.success('Question désactivée.');
-        this.loadQuestions();
-      },
-      error: () => {
-        this.toastr.error('Impossible de désactiver la question.');
-      },
-    });
-  }
-
-  enable(id: string): void {
-    this.api.enableDiagnosticQuestion(id).subscribe({
-      next: () => {
-        this.toastr.success('Question activée.');
-        this.loadQuestions();
-      },
-      error: () => {
-        this.toastr.error('Impossible d\'activer la question.');
-      },
-    });
   }
 
   delete(id: string): void {
