@@ -1,0 +1,41 @@
+<section class="history-page">
+  <div class="history-card">
+    <p class="eyebrow">Historique</p>
+    <h1>Mes diagnostics</h1>
+
+    @if (isLoading()) {
+    <p class="status">Chargement de l’historique...</p>
+    }
+
+    @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+    }
+
+    @if (!isLoading() && results().length === 0) {
+    <p class="empty">Aucun diagnostic enregistré pour le moment.</p>
+    }
+
+    @if (results().length > 0) {
+    <div class="results-list">
+      @for (result of results(); track result.id) {
+      <article class="result-item">
+        <div>
+          <span>Date :</span>
+          <strong>{{ result.createdAt | date: 'dd/MM/yyyy HH:mm' }}</strong>
+        </div>
+
+        <div>
+          <span>Score :</span>
+          <strong>{{ result.finalScore }}</strong>
+        </div>
+
+        <div>
+          <span>Niveau :</span>
+          <strong>{{ result.level }}</strong>
+        </div>
+      </article>
+      }
+    </div>
+    }
+  </div>
+</section>

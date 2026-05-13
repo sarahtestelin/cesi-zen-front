@@ -1,0 +1,166 @@
+<section class="profile-page">
+  <div class="profile-card">
+    <h1>Ton profil</h1>
+
+    @if (isLoading()) {
+    <p class="status">Chargement du profil...</p>
+    }
+
+    @if (errorMessage()) {
+    <p class="error">{{ errorMessage() }}</p>
+    }
+
+    @if (user()) {
+      @if (isEditing()) {
+      <div class="edit-form">
+        <label>
+          <span>Pseudo</span>
+          <input type="text" [(ngModel)]="editPseudo" />
+        </label>
+
+        <label>
+          <span>Email</span>
+          <input type="email" [(ngModel)]="editMail" />
+        </label>
+
+        @if (editError()) {
+        <p class="error">{{ editError() }}</p>
+        }
+
+        <div class="edit-actions">
+          <button class="btn btn--primary" (click)="saveProfile()" [disabled]="isSaving()">
+            {{ isSaving() ? 'Enregistrement...' : 'Enregistrer' }}
+          </button>
+          <button class="btn btn--secondary" (click)="cancelEditing()">Annuler</button>
+        </div>
+      </div>
+      } @else {
+      <div class="details">
+        <div>
+          <span>Pseudo : </span>
+          <strong>{{ user()?.pseudo }}</strong>
+        </div>
+
+        <div>
+          <span>Email : </span>
+          <strong>{{ user()?.mail }}</strong>
+        </div>
+
+        <div>
+          <span>Statut : </span>
+          <strong>{{ user()?.appUserIsActive ? 'Actif' : 'Désactivé' }}</strong>
+        </div>
+
+        <div>
+          <span>Dernière connexion : </span>
+          <strong>
+            {{ user()?.lastConnectionAt | date: 'dd/MM/yyyy HH:mm' }}
+          </strong>
+        </div>
+
+        <div>
+          <span>Rôle : </span>
+          <strong>{{ user()?.role }}</strong>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button class="btn btn--primary" (click)="startEditing()">Modifier mon profil</button>
+        <button class="btn btn--primary" (click)="startChangingPassword()">Changer le mot de passe</button>
+        <button class="btn btn--secondary" (click)="exportData()" [disabled]="isExporting()">
+          {{ isExporting() ? 'Export en cours...' : 'Exporter mes données' }}
+        </button>
+        <button class="btn btn--danger" (click)="confirmDelete()">Supprimer mon compte</button>
+      </div>
+      }
+    }
+
+    @if (isChangingPassword()) {
+    <div class="confirm-overlay">
+      <div class="confirm-dialog">
+        <h3>Changer le mot de passe</h3>
+
+        <div class="edit-form">
+          <label>
+            <span>Mot de passe actuel</span>
+            <input type="password" [(ngModel)]="currentPassword" />
+          </label>
+
+          <label>
+            <span>Nouveau mot de passe (min. 12 caractères)</span>
+            <input type="password" [(ngModel)]="newPassword" />
+          </label>
+
+          <label>
+            <span>Confirmer le nouveau mot de passe</span>
+            <input type="password" [(ngModel)]="confirmPassword" />
+          </label>
+
+          @if (passwordError()) {
+          <p class="error">{{ passwordError() }}</p>
+          }
+
+          <div class="confirm-actions">
+            <button class="btn btn--primary" (click)="savePassword()" [disabled]="isSavingPassword()">
+              {{ isSavingPassword() ? 'Enregistrement...' : 'Enregistrer' }}
+            </button>
+            <button class="btn btn--secondary" (click)="cancelChangingPassword()">Annuler</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+
+    @if (showDeleteConfirm()) {
+    <div class="confirm-overlay">
+      <div class="confirm-dialog">
+        <h3>Supprimer mon compte</h3>
+        <p>Cette action est irréversible. Toutes vos données seront anonymisées.</p>
+        <div class="confirm-actions">
+          <button class="btn btn--danger" (click)="deleteAccount()" [disabled]="isDeleting()">
+            {{ isDeleting() ? 'Suppression...' : 'Confirmer la suppression' }}
+          </button>
+          <button class="btn btn--secondary" (click)="cancelDelete()">Annuler</button>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="profile-card">
+    <h2>Historique des diagnostics</h2>
+
+    @if (isDiagnosticsLoading()) {
+    <p class="status">Chargement de l'historique...</p>
+    }
+
+    @if (diagnosticsError()) {
+    <p class="error">{{ diagnosticsError() }}</p>
+    }
+
+    @if (!isDiagnosticsLoading() && diagnosticResults().length === 0) {
+    <p class="empty">Aucun diagnostic enregistré pour le moment.</p>
+    }
+
+    @if (diagnosticResults().length > 0) {
+    <div class="results-list">
+      @for (result of diagnosticResults(); track result.id) {
+      <article class="result-item">
+        <div>
+          <span>Date :</span>
+          <strong>{{ result.createdAt | date: 'dd/MM/yyyy HH:mm' }}</strong>
+        </div>
+        <div>
+          <span>Score :</span>
+          <strong>{{ result.finalScore }}</strong>
+        </div>
+        <div>
+          <span>Niveau :</span>
+          <strong>{{ result.level }}</strong>
+        </div>
+      </article>
+      }
+    </div>
+    }
+  </div>
+</section>

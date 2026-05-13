@@ -1,0 +1,38 @@
+<header class="main-header">
+  <a routerLink="/" class="brand">
+    <span class="brand__icon">✦</span>
+    <span>CESIZen</span>
+  </a>
+
+  <nav class="nav">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      Accueil
+    </a>
+    <a routerLink="/ressources" routerLinkActive="active">Ressources</a>
+    <a routerLink="/diagnostic" routerLinkActive="active">Diagnostic</a>
+  </nav>
+
+  @if (isAuthenticated()) {
+  <div class="auth-actions">
+    @if (isAdmin()) {
+    <a routerLink="/admin" class="login-link">Admin</a>
+    }
+
+    @if (pseudo()) {
+    <a routerLink="/profil" class="welcome">Bonjour, {{ pseudo() }}</a>
+    }
+
+    <button type="button" class="login-link" (click)="logout()">Déconnexion</button>
+  </div>
+  } @else {
+  <a routerLink="/connexion" class="login-link">Connexion</a>
+  }
+</header>
+
+@if (isLoading()) {
+<div class="global-loader">Chargement...</div>
+}
+
+<main class="main-content">
+  <router-outlet />
+</main>

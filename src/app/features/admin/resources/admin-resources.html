@@ -1,0 +1,115 @@
+<section class="admin-page">
+  <div class="page-header">
+    <p class="eyebrow">Administration</p>
+    <h1>Gestion des ressources</h1>
+    <p class="subtitle">
+      Ajout, modification et suppression des ressources informatives.
+    </p>
+  </div>
+
+  <form class="admin-form" (ngSubmit)="submit()">
+    <h2>{{ form.id ? 'Modifier une ressource' : 'Ajouter une ressource' }}</h2>
+
+    <label>
+      Titre
+      <input
+        type="text"
+        name="title"
+        [(ngModel)]="form.title"
+        required
+        maxlength="150"
+        placeholder="Titre de la ressource"
+      />
+    </label>
+
+    <label>
+      Catégorie
+      <input
+        type="text"
+        name="category"
+        [(ngModel)]="form.category"
+        required
+        maxlength="100"
+        placeholder="Ex : Bien-être, Prévention..."
+      />
+    </label>
+
+    <label>
+      Description
+      <textarea
+        name="description"
+        [(ngModel)]="form.description"
+        required
+        rows="4"
+        placeholder="Contenu de la ressource"
+      ></textarea>
+    </label>
+
+    <div class="form-actions">
+      <button type="submit">
+        {{ form.id ? 'Modifier' : 'Ajouter' }}
+      </button>
+
+      <button
+        *ngIf="form.id"
+        type="button"
+        class="secondary"
+        (click)="cancelEdit()"
+      >
+        Annuler
+      </button>
+    </div>
+  </form>
+
+  <p *ngIf="loading" class="info-message">Chargement des ressources...</p>
+
+  <div class="table-wrapper" *ngIf="!loading">
+    <table>
+      <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Catégorie</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let resource of resources">
+        <td>{{ resource.title }}</td>
+        <td>{{ resource.category }}</td>
+        <td>
+            <span class="badge" [class.disabled]="!resource.ressourceIsActive">
+              {{ resource.ressourceIsActive ? 'Active' : 'Désactivée' }}
+            </span>
+        </td>
+        <td class="actions">
+          <button type="button" (click)="edit(resource)">Modifier</button>
+
+          <button
+            *ngIf="resource.ressourceIsActive"
+            type="button"
+            class="danger"
+            (click)="disable(resource.id)"
+          >
+            Désactiver
+          </button>
+
+          <button
+            *ngIf="!resource.ressourceIsActive"
+            type="button"
+            class="success"
+            (click)="enable(resource.id)"
+          >
+            Activer
+          </button>
+
+          <button type="button" class="danger-outline" (click)="delete(resource.id)">
+            Supprimer
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

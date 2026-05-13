@@ -1,0 +1,142 @@
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 6vw;
+  background: rgba(240, 229, 221, 0.92);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(110, 77, 54, 0.1);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  color: var(--color-brown);
+  white-space: nowrap;
+}
+
+.brand__icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-sage);
+  color: var(--color-white);
+}
+
+.nav {
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+  border-radius: 999px;
+  background: var(--color-sand);
+
+  a {
+    padding: 11px 20px;
+    border-radius: 999px;
+    color: var(--color-brown);
+    font-weight: 700;
+    transition: 0.2s ease;
+  }
+
+  a:hover {
+    background: rgba(255, 250, 247, 0.55);
+  }
+
+  a.active {
+    background: var(--color-white);
+    box-shadow: 0 8px 22px rgba(110, 77, 54, 0.12);
+  }
+}
+
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.welcome {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: var(--color-white);
+  color: var(--color-brown);
+  font-weight: 800;
+  box-shadow: 0 8px 22px rgba(110, 77, 54, 0.08);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(110, 77, 54, 0.16);
+  }
+}
+
+.login-link {
+  border: 0;
+  cursor: pointer;
+  padding: 11px 18px;
+  border-radius: 999px;
+  background: var(--color-brown);
+  color: var(--color-white);
+  font-weight: 800;
+  white-space: nowrap;
+  transition: 0.2s ease;
+}
+
+.login-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(110, 77, 54, 0.18);
+}
+
+.main-content {
+  padding: 32px 6vw 64px;
+}
+
+.global-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  padding: 10px;
+  text-align: center;
+  background: var(--color-sage);
+  color: var(--color-white);
+  font-weight: 800;
+}
+
+@media (max-width: 980px) {
+  .main-header {
+    flex-wrap: wrap;
+  }
+
+  .nav {
+    order: 3;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .auth-actions {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 620px) {
+  .auth-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .welcome {
+    width: 100%;
+    text-align: center;
+  }
+}

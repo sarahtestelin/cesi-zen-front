@@ -1,0 +1,76 @@
+<section class="admin-page">
+  <div class="page-header">
+    <p class="eyebrow">Administration</p>
+    <h1>Gestion des questions diagnostic</h1>
+    <p class="subtitle">
+      Configuration du questionnaire de stress et des points associés.
+    </p>
+  </div>
+
+  <form class="admin-form" (ngSubmit)="submit()">
+    <h2>{{ form.id ? 'Modifier une question' : 'Ajouter une question' }}</h2>
+
+    <label>
+      Question
+      <textarea
+        name="question"
+        [(ngModel)]="form.question"
+        required
+        rows="3"
+      ></textarea>
+    </label>
+
+    <label>
+      Score
+      <input
+        type="number"
+        name="score"
+        [(ngModel)]="form.score"
+        required
+        min="0"
+      />
+    </label>
+
+    <div class="form-actions">
+      <button type="submit">
+        {{ form.id ? 'Modifier' : 'Ajouter' }}
+      </button>
+
+      <button
+        *ngIf="form.id"
+        type="button"
+        class="secondary"
+        (click)="cancelEdit()"
+      >
+        Annuler
+      </button>
+    </div>
+  </form>
+
+  <p *ngIf="loading" class="info-message">Chargement des questions...</p>
+
+  <div class="table-wrapper" *ngIf="!loading">
+    <table>
+      <thead>
+      <tr>
+        <th>Question</th>
+        <th>Score</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let question of questions">
+        <td>{{ question.question }}</td>
+        <td>{{ question.score }}</td>
+        <td class="actions">
+          <button type="button" (click)="edit(question)">Modifier</button>
+          <button type="button" class="danger-outline" (click)="delete(question.id)">
+            Supprimer
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
