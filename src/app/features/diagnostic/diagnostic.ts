@@ -93,18 +93,6 @@ export class Diagnostic implements OnInit {
   }
 
   getLevelLabel(result: DiagnosticResult): string {
-    if (result.level) {
-      return result.level;
-    }
-
-    if (result.finalScore < 150) {
-      return 'Stress faible';
-    }
-
-    if (result.finalScore < 300) {
-      return 'Stress modéré';
-    }
-
-    return 'Stress élevé';
+    return result.level ?? 'Non déterminé';
   }
 }

@@ -27,6 +27,14 @@ export class Api {
     return this.http.post<AuthResponse>(`${this.baseUrl}/auth/register`, payload);
   }
 
+  logout(): Observable<void> {
+    return this.http.post<void>(`${this.baseUrl}/auth/logout`, {});
+  }
+
+  refreshToken(): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.baseUrl}/auth/refresh`, {});
+  }
+
   getCurrentUser(): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/users/me`);
   }

@@ -11,6 +11,6 @@ export interface DiagnosticSubmitRequest {
 export interface DiagnosticResult {
   id?: string;
   finalScore: number;
-  level?: string;
+  level: string;
   createdAt?: string;
 }
