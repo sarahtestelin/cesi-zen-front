@@ -1,0 +1,83 @@
+.admin-page {
+  padding: 2rem;
+}
+
+.page-header {
+  margin-bottom: 2rem;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: #7c8f7a;
+  margin-bottom: 0.3rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.subtitle {
+  color: #667085;
+  margin-top: 0.5rem;
+}
+
+.info-message,
+.error-message {
+  padding: 1rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.info-message {
+  background: #f5f7f4;
+}
+
+.error-message {
+  background: #ffe8e8;
+  color: #b42318;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: #ffffff;
+  border: 1px solid #e4e7ec;
+  border-radius: 18px;
+  padding: 1.4rem;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.05);
+
+  span {
+    display: block;
+    color: #667085;
+    font-size: 0.9rem;
+    margin-bottom: 0.7rem;
+  }
+
+  strong {
+    font-size: 2rem;
+    color: #1f2933;
+  }
+}
+
+.admin-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+
+  a {
+    text-decoration: none;
+    background: #7c8f7a;
+    color: white;
+    padding: 0.8rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+}

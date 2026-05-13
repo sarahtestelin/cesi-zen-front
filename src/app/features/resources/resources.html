@@ -1,0 +1,40 @@
+<section class="resources-page">
+  <div class="resources-header">
+    <p class="eyebrow">Ressources</p>
+    <h1>Informations sur la santé mentale</h1>
+    <p class="description">
+      Des contenus autour du stress, du bien-être et de la santé mentale.
+    </p>
+  </div>
+
+  @if (isLoading()) {
+  <p class="status">Chargement des ressources...</p>
+  }
+
+  @if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+  }
+
+  @if (!isLoading() && !errorMessage() && resources().length === 0) {
+  <p class="status">Aucune ressource disponible.</p>
+  }
+
+  @if (resources().length > 0) {
+  <div class="resources-grid">
+    @for (resource of resources(); track resource.id) {
+    <article class="resource-card">
+      <div class="tag">{{ resource.category || 'Information' }}</div>
+
+      <h2>{{ resource.title }}</h2>
+
+      <p>{{ resource.description }}</p>
+
+      <footer>
+        <span>Publié le :</span>
+        <strong>{{ resource.createdAt | date: 'dd/MM/yyyy' }}</strong>
+      </footer>
+    </article>
+    }
+  </div>
+  }
+</section>

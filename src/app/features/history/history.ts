@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { Api } from '../../core/services/api';
-import { DiagnosticResult } from '../../core/models/diagnostic-result.model';
+import { DiagnosticResult } from '../../core/models/diagnostic.model';
 
 @Component({
   selector: 'app-history',

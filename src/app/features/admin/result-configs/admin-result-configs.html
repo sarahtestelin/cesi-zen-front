@@ -1,0 +1,104 @@
+<section class="admin-page">
+  <div class="page-header">
+    <p class="eyebrow">Administration</p>
+    <h1>Gestion des seuils et résultats</h1>
+    <p class="subtitle">
+      Configuration des scores et messages affichés après un diagnostic.
+    </p>
+  </div>
+
+  <form class="admin-form" (ngSubmit)="submit()">
+    <h2>{{ form.id ? 'Modifier un seuil' : 'Ajouter un seuil' }}</h2>
+
+    <div class="grid">
+      <label>
+        Score minimum
+        <input
+          type="number"
+          name="minScore"
+          [(ngModel)]="form.minScore"
+          required
+          min="0"
+        />
+      </label>
+
+      <label>
+        Score maximum
+        <input
+          type="number"
+          name="maxScore"
+          [(ngModel)]="form.maxScore"
+          required
+          min="0"
+        />
+      </label>
+    </div>
+
+    <label>
+      Niveau
+      <input
+        type="text"
+        name="level"
+        [(ngModel)]="form.level"
+        required
+        placeholder="Ex : Stress faible"
+      />
+    </label>
+
+    <label>
+      Message de résultat
+      <textarea
+        name="message"
+        [(ngModel)]="form.message"
+        required
+        rows="4"
+      ></textarea>
+    </label>
+
+    <div class="form-actions">
+      <button type="submit">
+        {{ form.id ? 'Modifier' : 'Ajouter' }}
+      </button>
+
+      <button
+        *ngIf="form.id"
+        type="button"
+        class="secondary"
+        (click)="cancelEdit()"
+      >
+        Annuler
+      </button>
+    </div>
+  </form>
+
+  <p *ngIf="loading" class="info-message">Chargement des seuils...</p>
+
+  <div class="table-wrapper" *ngIf="!loading">
+    <table>
+      <thead>
+      <tr>
+        <th>Min</th>
+        <th>Max</th>
+        <th>Niveau</th>
+        <th>Message</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let config of configs">
+        <td>{{ config.minScore }}</td>
+        <td>{{ config.maxScore }}</td>
+        <td>{{ config.level }}</td>
+        <td>{{ config.message }}</td>
+        <td class="actions">
+          <button type="button" (click)="edit(config)">Modifier</button>
+          <button type="button" class="danger-outline" (click)="delete(config.id)">
+            Supprimer
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

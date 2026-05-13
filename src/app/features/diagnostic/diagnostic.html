@@ -1,2 +1,65 @@
-<h1>Diagnostic</h1>
-<p>Page du diagnostic</p>
+<section class="diagnostic-page">
+  <div class="diagnostic-header">
+    <p class="eyebrow">Diagnostic</p>
+    <h1>Évalue ton niveau de stress</h1>
+    <p class="description">
+      Sélectionne les situations qui te concernent. Le résultat est indicatif et ne remplace pas un avis médical.
+    </p>
+  </div>
+
+  @if (isLoading()) {
+  <p class="status">Chargement des questions...</p>
+  }
+
+  @if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+  }
+
+  @if (!isLoading() && questions().length > 0 && !result()) {
+  <div class="diagnostic-content">
+    <div class="questions-list">
+      @for (question of questions(); track question.id) {
+      <button
+        type="button"
+        class="question-card"
+        [class.selected]="isSelected(question.id)"
+        (click)="toggleQuestion(question.id)"
+      >
+        <span class="question-text">{{ question.question }}</span>
+        <span class="question-score">{{ question.score }} pts</span>
+      </button>
+      }
+    </div>
+
+    <aside class="summary-card">
+      <p class="summary-label">Situations sélectionnées</p>
+      <strong>{{ selectedCount() }}</strong>
+
+      <button type="button" class="submit-button" (click)="submit()" [disabled]="isSubmitting()">
+        {{ isSubmitting() ? 'Calcul...' : 'Voir mon résultat' }}
+      </button>
+    </aside>
+  </div>
+  }
+
+  @if (result()) {
+  <div class="result-card">
+    <p class="eyebrow">Résultat</p>
+    <h2>{{ getLevelLabel(result()!) }}</h2>
+
+    <div class="score">
+      <span>Score :</span>
+      <strong>{{ result()?.finalScore }}</strong>
+    </div>
+
+    <p class="result-text">
+      Ce score donne une indication générale de ton niveau de stress. Il peut t’aider à prendre du recul,
+      mais ne constitue pas un diagnostic médical.
+    </p>
+
+    <div class="result-actions">
+      <button type="button" class="submit-button" (click)="reset()">Refaire le diagnostic</button>
+    </div>
+  </div>
+  }
+</section>

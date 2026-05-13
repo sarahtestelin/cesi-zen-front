@@ -1,3 +1,5 @@
+import { User } from './user.model';
+
 export interface LoginRequest {
   mail: string;
   password: string;
@@ -12,5 +14,6 @@ export interface RegisterRequest {
 }
 
 export interface AuthResponse {
-  accessToken: string;
+  accessToken: string | null;
+  user: User;
 }

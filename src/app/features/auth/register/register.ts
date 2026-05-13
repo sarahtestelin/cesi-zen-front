@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Auth } from '../../../core/services/auth';
 
 @Component({
@@ -12,6 +13,7 @@ import { Auth } from '../../../core/services/auth';
 export class Register {
   private readonly auth = inject(Auth);
   private readonly router = inject(Router);
+  private readonly toastr = inject(ToastrService);
 
   mail = '';
   pseudo = '';
@@ -51,15 +53,14 @@ export class Register {
       .subscribe({
         next: () => {
           this.isLoading.set(false);
+          this.toastr.success('Inscription réussie !');
           this.router.navigateByUrl('/');
         },
         error: (err) => {
           this.isLoading.set(false);
-          console.error(err);
-
-          this.errorMessage.set(
-            err?.error?.message || 'Erreur lors de la création du compte'
-          );
+          const msg = err?.error?.message || 'Erreur lors de la création du compte';
+          this.toastr.error(msg);
+          this.errorMessage.set(msg);
         }
       });
   }
