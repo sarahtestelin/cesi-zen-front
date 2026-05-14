@@ -53,8 +53,11 @@
     </div>
 
     <p class="result-text">
-      Ce score donne une indication générale de ton niveau de stress. Il peut t’aider à prendre du recul,
-      mais ne constitue pas un diagnostic médical.
+      {{ result()?.message }}
+    </p>
+
+    <p class="result-disclaimer">
+      Ce résultat est indicatif et ne remplace pas un avis médical.
     </p>
 
     <div class="result-actions">
