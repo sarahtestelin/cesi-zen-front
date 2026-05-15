@@ -54,9 +54,18 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
   const csrf = inject(Csrf);
 
+  let csrfRetried = false;
+
   const executeRequest = (request: HttpRequest<unknown>) => {
     return next(request).pipe(
       catchError((error: HttpErrorResponse) => {
+        if (error.status === 403 && needsCsrf(req) && !csrfRetried) {
+          csrfRetried = true;
+          return csrf.getToken().pipe(
+            switchMap(() => next(buildRequest(req, auth, csrf))),
+          );
+        }
+
         const isAuthUrl =
           req.url.includes('/auth/refresh') ||
           req.url.includes('/auth/login') ||
