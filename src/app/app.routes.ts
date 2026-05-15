@@ -65,6 +65,16 @@ export const routes: Routes = [
           import('./features/admin/users/admin-users').then((m) => m.AdminUsers),
       },
       {
+        path: 'utilisateurs-desactives',
+        loadComponent: () =>
+          import('./features/admin/disabled-users/admin-disabled-users').then((m) => m.AdminDisabledUsers),
+      },
+      {
+        path: 'utilisateurs-supprimes',
+        loadComponent: () =>
+          import('./features/admin/deleted-users/admin-deleted-users').then((m) => m.AdminDeletedUsers),
+      },
+      {
         path: 'questions-diagnostic',
         loadComponent: () =>
           import('./features/admin/diagnostic-questions/admin-diagnostic-questions')

@@ -98,6 +98,14 @@ export class Api {
     return this.http.patch<User>(`${this.baseUrl}/users/${id}/disable`, {});
   }
 
+  promoteUser(id: string): Observable<User> {
+    return this.http.patch<User>(`${this.baseUrl}/users/${id}/promote`, {});
+  }
+
+  demoteUser(id: string): Observable<User> {
+    return this.http.patch<User>(`${this.baseUrl}/users/${id}/demote`, {});
+  }
+
   getAdminStats(): Observable<AdminDashboardStats> {
     return this.http.get<AdminDashboardStats>(`${this.baseUrl}/admin/dashboard/stats`);
   }
