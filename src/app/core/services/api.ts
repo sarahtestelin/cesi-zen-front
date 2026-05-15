@@ -43,6 +43,10 @@ export class Api {
     return this.http.get<Resource[]>(`${this.baseUrl}/v1/ressources`);
   }
 
+  getResource(id: string): Observable<Resource> {
+    return this.http.get<Resource>(`${this.baseUrl}/v1/ressources/${id}`);
+  }
+
   getDiagnosticQuestions(): Observable<DiagnosticQuestion[]> {
     return this.http.get<DiagnosticQuestion[]>(`${this.baseUrl}/v1/diagnostics/questions`);
   }

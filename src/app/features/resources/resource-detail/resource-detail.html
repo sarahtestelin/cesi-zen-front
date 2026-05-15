@@ -1,0 +1,30 @@
+<section class="resource-detail-page">
+  <a routerLink="/ressources" class="back-link">← Retour aux ressources</a>
+
+  @if (isLoading()) {
+  <p class="status">Chargement...</p>
+  }
+
+  @if (errorMessage()) {
+  <p class="error">{{ errorMessage() }}</p>
+  }
+
+  @if (resource(); as r) {
+  <article class="resource-content">
+    <div class="tag">{{ r.category || 'Information' }}</div>
+
+    <h1>{{ r.title }}</h1>
+
+    <div class="meta">
+      <span>Publié le <strong>{{ r.createdAt | date: 'dd/MM/yyyy' }}</strong></span>
+      @if (r.updatedAt && r.updatedAt !== r.createdAt) {
+      <span>· Mis à jour le <strong>{{ r.updatedAt | date: 'dd/MM/yyyy' }}</strong></span>
+      }
+    </div>
+
+    <div class="body">
+      <p>{{ r.description }}</p>
+    </div>
+  </article>
+  }
+</section>

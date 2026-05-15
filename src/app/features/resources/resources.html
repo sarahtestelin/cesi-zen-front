@@ -8,7 +8,7 @@
   </div>
 
   @if (isLoading()) {
-  <p class="status">Chargement des ressources...</p>
+  <p class="status">Chargement des ressources</p>
   }
 
   @if (errorMessage()) {
@@ -16,13 +16,13 @@
   }
 
   @if (!isLoading() && !errorMessage() && resources().length === 0) {
-  <p class="status">Aucune ressource disponible.</p>
+  <p class="status">Aucune ressource de disponible.</p>
   }
 
   @if (resources().length > 0) {
   <div class="resources-grid">
     @for (resource of resources(); track resource.id) {
-    <article class="resource-card">
+    <a class="resource-card" [routerLink]="['/ressources', resource.id]">
       <div class="tag">{{ resource.category || 'Information' }}</div>
 
       <h2>{{ resource.title }}</h2>
@@ -33,7 +33,7 @@
         <span>Publié le :</span>
         <strong>{{ resource.createdAt | date: 'dd/MM/yyyy' }}</strong>
       </footer>
-    </article>
+    </a>
     }
   </div>
   }
