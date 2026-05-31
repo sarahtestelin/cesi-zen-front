@@ -1,39 +1,35 @@
 <section class="admin-page">
   <div class="page-header">
     <p class="eyebrow">Administration</p>
-    <h1>Liste des utilisateurs</h1>
-    <p class="subtitle">Activation et désactivation des comptes utilisateurs.</p>
+    <h1>Utilisateurs</h1>
+    <p class="subtitle">Gestion des comptes utilisateurs actifs.</p>
   </div>
 
-  <p *ngIf="loading" class="info-message">Chargement des utilisateurs...</p>
+  <p *ngIf="loading()" class="info-message">Chargement des utilisateurs</p>
 
-  <div class="table-wrapper" *ngIf="!loading">
+  <div class="table-wrapper" *ngIf="!loading()">
     <table>
       <thead>
       <tr>
         <th>Pseudo</th>
         <th>Email</th>
         <th>Rôle</th>
-        <th>Statut</th>
         <th>Dernière connexion</th>
-        <th>Action</th>
+        <th>Actions</th>
       </tr>
       </thead>
 
       <tbody>
-      <tr *ngFor="let user of users">
+      <tr *ngIf="users().length === 0">
+        <td colspan="5" class="empty">Aucun utilisateur actif.</td>
+      </tr>
+      <tr *ngFor="let user of users()">
         <td>{{ user.pseudo }}</td>
         <td>{{ user.mail }}</td>
         <td>{{ user.role }}</td>
-        <td>
-            <span class="badge" [class.disabled]="!isUserActive(user)">
-              {{ isUserActive(user) ? 'Actif' : 'Désactivé' }}
-            </span>
-        </td>
         <td>{{ getLastConnection(user) }}</td>
-        <td>
+        <td class="actions">
           <button
-            *ngIf="isUserActive(user)"
             type="button"
             class="danger"
             (click)="disableUser(user.id)"
@@ -42,12 +38,21 @@
           </button>
 
           <button
-            *ngIf="!isUserActive(user)"
+            *ngIf="user.role === 'USER'"
             type="button"
-            class="success"
-            (click)="enableUser(user.id)"
+            class="promote"
+            (click)="promoteUser(user.id)"
           >
-            Activer
+            Promouvoir admin
+          </button>
+
+          <button
+            *ngIf="user.role === 'ADMIN'"
+            type="button"
+            class="demote"
+            (click)="demoteUser(user.id)"
+          >
+            Retirer admin
           </button>
         </td>
       </tr>

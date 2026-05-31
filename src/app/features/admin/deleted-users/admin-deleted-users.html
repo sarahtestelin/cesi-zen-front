@@ -1,0 +1,32 @@
+<section class="admin-page">
+  <div class="page-header">
+    <p class="eyebrow">Administration</p>
+    <h1>Utilisateurs supprimés</h1>
+    <p class="subtitle">Comptes anonymisés conformément au RGPD.</p>
+  </div>
+
+  <p *ngIf="loading()" class="info-message">Chargement...</p>
+
+  <div class="table-wrapper" *ngIf="!loading()">
+    <table>
+      <thead>
+      <tr>
+        <th>Identifiant</th>
+        <th>Email</th>
+        <th>Statut</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngIf="deletedUsers().length === 0">
+        <td colspan="3" class="empty">Aucun utilisateur n'a encore été supprimé.</td>
+      </tr>
+      <tr *ngFor="let user of deletedUsers()">
+        <td>{{ user.pseudo }}</td>
+        <td>{{ user.mail }}</td>
+        <td><span class="badge deleted">Supprimé</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

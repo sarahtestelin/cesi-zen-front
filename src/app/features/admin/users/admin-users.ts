@@ -1,13 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { Api } from '../../../core/services/api';
 import { User } from '../../../core/models/user.model';
-
-type AdminUserView = User & {
-  isActive?: boolean;
-  active?: boolean;
-};
 
 @Component({
   selector: 'app-admin-users',
@@ -20,46 +15,34 @@ export class AdminUsers implements OnInit {
   private readonly api = inject(Api);
   private readonly toastr = inject(ToastrService);
 
-  users: AdminUserView[] = [];
-  loading = true;
+  allUsers = signal<User[]>([]);
+  loading = signal(true);
+
+  users = computed(() =>
+    this.allUsers().filter((u) => u.appUserIsActive && !u.mail.endsWith('@deleted.local')),
+  );
 
   ngOnInit(): void {
     this.loadUsers();
   }
 
   loadUsers(): void {
-    this.loading = true;
+    this.loading.set(true);
 
     this.api.getUsers().subscribe({
       next: (users) => {
-        this.users = users as AdminUserView[];
-        this.loading = false;
+        this.allUsers.set(users);
+        this.loading.set(false);
       },
       error: () => {
         this.toastr.error('Impossible de charger la liste des utilisateurs.');
-        this.loading = false;
+        this.loading.set(false);
       },
     });
   }
 
-  isUserActive(user: AdminUserView): boolean {
-    return user.isActive ?? user.active ?? true;
-  }
-
-  getLastConnection(user: AdminUserView): string {
+  getLastConnection(user: User): string {
     return user.lastConnectionAt ?? '—';
-  }
-
-  enableUser(id: string): void {
-    this.api.enableUser(id).subscribe({
-      next: () => {
-        this.toastr.success('Compte activé avec succès.');
-        this.loadUsers();
-      },
-      error: () => {
-        this.toastr.error('Impossible d\'activer ce compte.');
-      },
-    });
   }
 
   disableUser(id: string): void {
@@ -70,6 +53,30 @@ export class AdminUsers implements OnInit {
       },
       error: () => {
         this.toastr.error('Impossible de désactiver ce compte.');
+      },
+    });
+  }
+
+  promoteUser(id: string): void {
+    this.api.promoteUser(id).subscribe({
+      next: () => {
+        this.toastr.success('Utilisateur promu administrateur.');
+        this.loadUsers();
+      },
+      error: () => {
+        this.toastr.error('Impossible de promouvoir cet utilisateur.');
+      },
+    });
+  }
+
+  demoteUser(id: string): void {
+    this.api.demoteUser(id).subscribe({
+      next: () => {
+        this.toastr.success('Rôle administrateur retiré.');
+        this.loadUsers();
+      },
+      error: (err) => {
+        this.toastr.error(err.error?.error || 'Impossible de retirer le rôle administrateur.');
       },
     });
   }

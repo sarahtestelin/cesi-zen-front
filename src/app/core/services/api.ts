@@ -43,6 +43,10 @@ export class Api {
     return this.http.get<Resource[]>(`${this.baseUrl}/v1/ressources`);
   }
 
+  getResource(id: string): Observable<Resource> {
+    return this.http.get<Resource>(`${this.baseUrl}/v1/ressources/${id}`);
+  }
+
   getDiagnosticQuestions(): Observable<DiagnosticQuestion[]> {
     return this.http.get<DiagnosticQuestion[]>(`${this.baseUrl}/v1/diagnostics/questions`);
   }
@@ -92,6 +96,14 @@ export class Api {
 
   disableUser(id: string): Observable<User> {
     return this.http.patch<User>(`${this.baseUrl}/users/${id}/disable`, {});
+  }
+
+  promoteUser(id: string): Observable<User> {
+    return this.http.patch<User>(`${this.baseUrl}/users/${id}/promote`, {});
+  }
+
+  demoteUser(id: string): Observable<User> {
+    return this.http.patch<User>(`${this.baseUrl}/users/${id}/demote`, {});
   }
 
   getAdminStats(): Observable<AdminDashboardStats> {

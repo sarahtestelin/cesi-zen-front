@@ -53,52 +53,14 @@ th {
   font-size: 0.85rem;
 }
 
-.badge {
-  display: inline-block;
-  padding: 0.35rem 0.7rem;
-  border-radius: 999px;
-  background: #e7f6ec;
-  color: #027a48;
-  font-weight: 600;
-
-  &.disabled {
-    background: #fff1f3;
-    color: #c01048;
-  }
-}
-
-button {
+button.success {
   border: none;
   border-radius: 999px;
   padding: 0.55rem 0.9rem;
   cursor: pointer;
   font-weight: 600;
-}
-
-button.success {
   background: #7c8f7a;
   color: white;
-}
-
-button.danger {
-  background: #fee4e2;
-  color: #b42318;
-}
-
-button.promote {
-  background: #fdf2f8;
-  color: #db2777;
-}
-
-button.demote {
-  background: #fff3cd;
-  color: #856404;
-}
-
-.actions {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
 }
 
 .empty {

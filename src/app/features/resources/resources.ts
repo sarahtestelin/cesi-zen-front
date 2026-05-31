@@ -1,11 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { Api } from '../../core/services/api';
 import { Resource } from '../../core/models/resource.model';
 
 @Component({
   selector: 'app-resources',
-  imports: [DatePipe],
+  imports: [DatePipe, RouterLink],
   templateUrl: './resources.html',
   styleUrl: './resources.scss',
 })
@@ -23,7 +24,7 @@ export class Resources implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        console.error('Erreur récupération ressources', error);
+        console.error('Erreur pour la récupération des ressources', error);
         this.errorMessage.set('Impossible de récupérer les ressources.');
         this.isLoading.set(false);
       },
