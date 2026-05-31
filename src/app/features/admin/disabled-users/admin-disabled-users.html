@@ -1,0 +1,42 @@
+<section class="admin-page">
+  <div class="page-header">
+    <p class="eyebrow">Administration</p>
+    <h1>Utilisateurs désactivés</h1>
+    <p class="subtitle">Comptes désactivés pouvant être réactivés.</p>
+  </div>
+
+  <p *ngIf="loading()" class="info-message">Chargement...</p>
+
+  <div class="table-wrapper" *ngIf="!loading()">
+    <table>
+      <thead>
+      <tr>
+        <th>Pseudo</th>
+        <th>Email</th>
+        <th>Rôle</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngIf="users().length === 0">
+        <td colspan="4" class="empty">Aucun utilisateur désactivé.</td>
+      </tr>
+      <tr *ngFor="let user of users()">
+        <td>{{ user.pseudo }}</td>
+        <td>{{ user.mail }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <button
+            type="button"
+            class="success"
+            (click)="enableUser(user.id)"
+          >
+            Réactiver
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

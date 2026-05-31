@@ -3,7 +3,7 @@
     <p class="eyebrow">Diagnostic</p>
     <h1>Évalue ton niveau de stress</h1>
     <p class="description">
-      Sélectionne les situations qui te concernent. Le résultat est indicatif et ne remplace pas un avis médical.
+      Sélectionne les situations qui te concernent. Le résultat est une indication et ne remplace pas un avis médical.
     </p>
   </div>
 
@@ -53,8 +53,11 @@
     </div>
 
     <p class="result-text">
-      Ce score donne une indication générale de ton niveau de stress. Il peut t’aider à prendre du recul,
-      mais ne constitue pas un diagnostic médical.
+      {{ result()?.message }}
+    </p>
+
+    <p class="result-disclaimer">
+      Ce résultat est juste une indication et ne remplace pas un vrai avis médical.
     </p>
 
     <div class="result-actions">

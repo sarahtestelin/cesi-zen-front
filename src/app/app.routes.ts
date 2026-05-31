@@ -39,10 +39,15 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/auth/reset-password/reset-password').then((m) => m.ResetPassword),
       },
-  {
+      {
         path: 'ressources',
-    loadComponent: () => import('./features/resources/resources').then((m) => m.Resources),
-    },
+        loadComponent: () => import('./features/resources/resources').then((m) => m.Resources),
+      },
+      {
+        path: 'ressources/:id',
+        loadComponent: () =>
+          import('./features/resources/resource-detail/resource-detail').then((m) => m.ResourceDetail),
+      },
     ],
   },
   {
@@ -58,6 +63,16 @@ export const routes: Routes = [
         path: 'utilisateurs',
         loadComponent: () =>
           import('./features/admin/users/admin-users').then((m) => m.AdminUsers),
+      },
+      {
+        path: 'utilisateurs-desactives',
+        loadComponent: () =>
+          import('./features/admin/disabled-users/admin-disabled-users').then((m) => m.AdminDisabledUsers),
+      },
+      {
+        path: 'utilisateurs-supprimes',
+        loadComponent: () =>
+          import('./features/admin/deleted-users/admin-deleted-users').then((m) => m.AdminDeletedUsers),
       },
       {
         path: 'questions-diagnostic',
