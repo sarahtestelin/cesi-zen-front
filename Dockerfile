@@ -14,6 +14,7 @@ RUN npm run build
 FROM nginxinc/nginx-unprivileged:alpine
 
 USER root
+RUN apk upgrade --no-cache libcrypto3 libssl3
 
 # Suppression de la page Nginx par défaut
 RUN rm -rf /usr/share/nginx/html/*
