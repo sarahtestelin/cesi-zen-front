@@ -42,3 +42,11 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# OWASP ZAP
+/zap-report*.html
+/zap.yaml
+
+# Playwright
+playwright-report/
+test-results/

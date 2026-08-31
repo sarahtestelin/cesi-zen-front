@@ -17,8 +17,7 @@ import { AdminDashboardStats, DiagnosticResultConfig } from '../models/admin.mod
 })
 export class Api {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = 'https://localhost:8080/api';
-
+  private readonly baseUrl = '/api';
   login(payload: LoginRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/auth/login`, payload);
   }

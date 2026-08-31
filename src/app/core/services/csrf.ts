@@ -7,7 +7,7 @@ import { Observable, tap } from 'rxjs';
 })
 export class Csrf {
   private readonly http = new HttpClient(inject(HttpBackend));
-  private readonly csrfUrl = 'https://localhost:8080/api/csrf';
+  private readonly csrfUrl = '/api/csrf';
   private cachedToken: string | null = null;
 
   getToken(): Observable<{ token: string }> {
